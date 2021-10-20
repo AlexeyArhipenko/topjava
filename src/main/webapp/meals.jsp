@@ -1,60 +1,48 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: alexejarhipenko
-  Date: 18.10.2021
-  Time: 20:39
-  To change this template use File | Settings | File Templates.
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<html lang="ru">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://topjava.javawebinar.ru/functions" %>
+<%--<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>--%>
+<html>
 <head>
     <title>Meal list</title>
+    <style>
+        .normal {
+            color: green;
+        }
+
+        .excess {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-<h3><a href="index.html">Back to home page</a></h3>
-<hr>
-<style>
-    TABLE {
-        width: 600px; /* Ширина таблицы */
-        border-collapse: collapse; /* Убираем двойные линии между ячейками */
-    }
-    TD, TH {
-        padding: 3px; /* Поля вокруг содержимого таблицы */
-        border: 2px solid black; /* Параметры рамки */
-    }
-    TH {
-        background: #b0e0e6; /* Цвет фона */
-    }
-</style>
-<table>
-    <thead>
-    <tr>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Calories</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${mealsList}" var="meal" varStatus="status">
+<section>
+    <h3><a href="index.html">Home</a></h3>
+    <hr/>
+    <h2>Meals</h2>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
         <tr>
-            <td>${meal.dateTime}</td>
-            <td>${meal.description}</td>
-            <td>${meal.calories}</td>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Calories</th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        </thead>
+        <c:forEach items="${meals}" var="meal">
+            <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealTo"/>
+            <tr class="${meal.excess ? 'excess' : 'normal'}">
+                <td>
+                        <%--${meal.dateTime.toLocalDate()} ${meal.dateTime.toLocalTime()}--%>
+                        <%--<%=TimeUtil.toString(meal.getDateTime())%>--%>
+                        <%--${fn:replace(meal.dateTime, 'T', ' ')}--%>
+                        ${fn:formatDateTime(meal.dateTime)}
+                </td>
+                <td>${meal.description}</td>
+                <td>${meal.calories}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</section>
 </body>
 </html>
