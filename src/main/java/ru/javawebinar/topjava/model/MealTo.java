@@ -10,9 +10,9 @@ public class MealTo {
     private final int calories;
     private final boolean excess;
 
-    public MealTo(LocalDateTime dateTime, String description, int calories, boolean excess) {
+    /*public MealTo(LocalDateTime dateTime, String description, int calories, boolean excess) {
         this(null, dateTime, description, calories, excess);
-    }
+    }*/
 
     public MealTo(Integer id, LocalDateTime dateTime, String description, int calories, boolean excess) {
         this.id = id;
@@ -46,6 +46,8 @@ public class MealTo {
     public String toString() {
         return "MealTo{" +
                 "dateTime=" + dateTime +
+                "id=" + id +
+                ", dateTime=" + dateTime +
                 ", description='" + description + '\'' +
                 ", calories=" + calories +
                 ", excess=" + excess +
