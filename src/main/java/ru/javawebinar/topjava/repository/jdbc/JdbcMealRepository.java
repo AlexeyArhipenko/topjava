@@ -38,10 +38,10 @@ public class JdbcMealRepository implements MealRepository {
 
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", meal.getId())
-                .addValue("userId", userId)
-                .addValue("dateTime", meal.getDateTime())
                 .addValue("description", meal.getDescription())
-                .addValue("calories", meal.getCalories());
+                .addValue("calories", meal.getCalories())
+                .addValue("date_time", meal.getDateTime())
+                .addValue("user_id", userId);
 
         if (meal.isNew()) {
             Number newId = insertMeal.executeAndReturnKey(map);
@@ -50,7 +50,8 @@ public class JdbcMealRepository implements MealRepository {
             if (namedParameterJdbcTemplate.update("" +
                     "UPDATE meals " +
                     "   SET description=:description, calories=:calories, date_time=:date_time " +
-                    " WHERE id=:id AND user_id=:user_id", map) == 0) {
+                    " WHERE id=:id AND user_id=:user_id"
+                    , map) == 0) {
                 return null;
             }
         }
@@ -59,7 +60,7 @@ public class JdbcMealRepository implements MealRepository {
 
     @Override
     public boolean delete(int id, int userId) {
-        return jdbcTemplate.update("DELETE FROM meals WHERE id=? AND use_id=?", id, userId) != 0;
+        return jdbcTemplate.update("DELETE FROM meals WHERE id=? AND user_id=?", id, userId) != 0;
     }
 
     @Override
