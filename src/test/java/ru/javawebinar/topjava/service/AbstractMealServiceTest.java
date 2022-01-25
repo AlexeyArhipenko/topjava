@@ -50,7 +50,7 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
     };
 
     @Autowired
-    private MealService service;
+    protected MealService service;
 
     @AfterClass
     public static void printResult() {
